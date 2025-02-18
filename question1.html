@@ -21,71 +21,76 @@
     background: url('images/background(2).png') no-repeat center center;
     background-size: contain; /* 保持圖片完整顯示 */
     background-attachment: fixed; /* 讓背景圖不會跟著捲動 */
-    aspect-ratio: 1125 / 2436; /* 設定背景圖的寬高比 */
 
 }
-.container {
-    position: relative;
-    width: 100%;
-    max-width: 1125px; /* 限制最大寬度 */
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.left-box {
-    position: absolute;
-    width: 40vw; /* 讓它自適應視窗寬度 */
-    max-width: 400px;
-    height: auto;
-    top: 27.5%;
-    left: 37%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.right-options {
-    position: absolute;
-    width: 10vw; /* 讓它相對於視窗寬度縮放 */
-    max-width: 190px;
-    height: 75vh; /* 讓它適應畫面高度 */
-    top: 7%;
-    right: 35%;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.option img {
-    width: 90%; /* 讓圖片自適應選項框 */
-    max-width: 190px;
-    height: auto;
-    cursor: pointer;
-    margin-bottom: 10px;
-}
-
-.next-button {
-    position: absolute;
-    bottom: 5%;
-    right: 5%;
-    width: 15vw; /* 讓按鈕大小相對於視窗寬度 */
-    max-width: 120px;
-    height: auto;
-    cursor: pointer;
-}
-
-.selected-image {
-    max-width: 100%;
-    max-height: 100%;
-    top: 10%;
-    transform: scale(2); /* 放大 200% */
-    transition: transform 0.3s ease-in-out;
-}
-
+        .container {
+            display: flex;
+            width: 80%;
+            height: 70vh;
+        }
+        .left-box {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 90px;
+            height: 134px;
+            transform: translate(-100px, -285px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .right-options {
+            position: absolute;
+            width: 86px;
+            height: 800px; /* 限制高度，讓它能滾動 */
+            max-height: 73vh; /* 防止超過螢幕 */
+            /* background-color: rgba(128, 128, 128, 0.5);
+            border: 2px solid #888;*/
+            overflow-y: auto; /* 允許上下滾動 */
+            overflow-x: hidden; /* 禁止左右滾動 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0;
+            transform:translate(140px, -45px);
+        }
+        /* 自訂滾動條樣式 */
+        .right-options::-webkit-scrollbar {
+            width: 5px; /* 調整滾動條寬度 */
+        }
+        .right-options::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.5); /* 滾動條顏色 */
+            border-radius: 3px;
+        }
+        /*.right-options::-webkit-scrollbar-track {
+            background: rgba(200, 200, 200, 0.3); /* 滑動區域顏色 */
+        .option img {
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            margin-bottom: 10px;
+        }
+ 
+        .next-button {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 300px;
+            height: 300px;
+            /*background-color: #ccc;*/
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transform: translate(250px, 870px);
+        }
+        .selected-image {
+            max-width: 100%;
+            max-height: 100%;
+            transform: scale(2.5); /* 放大 300% */
+            transition: transform 0.3s ease-in-out; /* 添加平滑過渡動畫 */
+        }
     </style>
 </head>
 <body>
