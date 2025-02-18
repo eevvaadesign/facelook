@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>測驗網站</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+        }
+        .cover img, .start-button img {
+            max-width: 100%;
+            height: auto;
+        }
+        .hidden {
+            display: none;
+        }
+        .start-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .start-button img {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- 封面頁面 -->
+    <div class="container cover" id="coverPage">
+        <img src="images/your-cover-image.jpg" alt="封面圖">
+    </div>
+
+    <!-- 開始頁面 -->
+    <div class="container hidden" id="startPage">
+        <div class="start-button" onclick="startTest()">
+            <img src="images/your-start-button-image.png" alt="開始按鈕">
+        </div>
+    </div>
+
+    <script>
+        // 3秒後自動跳轉
+        setTimeout(() => {
+            document.getElementById('coverPage').classList.add('hidden');
+            document.getElementById('startPage').classList.remove('hidden');
+        }, 3000);
+
+        function startTest() {
+            window.location.href = 'question1.html'; // 跳轉到第一題
+        }
+    </script>
+</body>
+</html>

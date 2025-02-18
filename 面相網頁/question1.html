@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第一題</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: url('images/background(2).png') no-repeat center center;
+            background-size: 1125px 2436px;
+        }
+        .container {
+            display: flex;
+            width: 80%;
+            height: 70vh;
+        }
+        .left-box {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 790px;
+            height: 1034px;
+            transform: translate(-50%, -50%) translate(-138px, -535px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .right-options {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 246px;
+            height: 1831px; /* 限制高度，讓它能滾動 */
+            max-height: 80vh; /* 防止超過螢幕 */
+            /* background-color: rgba(128, 128, 128, 0.5);
+            border: 2px solid #888;*/
+            overflow-y: auto; /* 允許上下滾動 */
+            overflow-x: hidden; /* 禁止左右滾動 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0;
+            transform: translate(-50%, -50%) translate(410px, -120px);
+        }
+        /* 自訂滾動條樣式 */
+        .right-options::-webkit-scrollbar {
+            width: 7px; /* 調整滾動條寬度 */
+        }
+        .right-options::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.5); /* 滾動條顏色 */
+            border-radius: 4px;
+        }
+        /*.right-options::-webkit-scrollbar-track {
+            background: rgba(200, 200, 200, 0.3); /* 滑動區域顏色 */
+        .option img {
+            width: 300px;
+            height: 300px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            margin-bottom: 10px;
+        }
+ 
+        .next-button {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 300px;
+            height: 300px;
+            /*background-color: #ccc;*/
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transform: translate(250px, 870px);
+        }
+        .selected-image {
+            max-width: 100%;
+            max-height: 100%;
+            transform: scale(3); /* 放大 300% */
+            transition: transform 0.3s ease-in-out; /* 添加平滑過渡動畫 */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 左側顯示區域 -->
+        <div class="left-box" id="displayBox"></div>
+    </div>
+    
+    <!-- 右側選項欄 -->
+    <div class="right-options">
+        <div class="option" onclick="selectOption('images/face1.png')">
+            <img src="images/face1.png" alt="選項1">
+        </div>
+        <div class="option" onclick="selectOption('images/face2.png')">
+            <img src="images/face2.png" alt="選項2">
+        </div>
+        <div class="option" onclick="selectOption('images/face3.png')">
+            <img src="images/face3.png" alt="選項3">
+        </div>
+        <div class="option" onclick="selectOption('images/face4.png')">
+            <img src="images/face4.png" alt="選項4">
+        </div>
+        <div class="option" onclick="selectOption('images/face5.png')">
+            <img src="images/face5.png" alt="選項5">
+        </div>
+        <div class="option" onclick="selectOption('images/face6.png')">
+            <img src="images/face6.png" alt="選項6">
+        </div>
+    </div>
+    
+    <!-- 下一頁按鈕 -->
+    <div class="next-button" onclick="nextPage()"></div>
+    </div>
+    
+    <script>
+        function selectOption(imageSrc) {
+            document.getElementById('displayBox').innerHTML = `<img src="${imageSrc}" class="selected-image">`;
+        }
+        
+        /*function nextPage() {
+            window.location.href = 'question2.html';
+            
+        }*/
+
+function nextPage() {
+    const selectedImage = document.querySelector('.selected-image');
+    if (selectedImage) {
+        localStorage.setItem('selectedFace', selectedImage.src);
+    }
+    window.location.href = 'question2.html';
+}
+    </script>
+</body>
+</html>
