@@ -1,0 +1,9 @@
+/* 讓主容器固定寬度，並自動適應螢幕高度 */
+.main-container {
+    width: 400px;  /* 你想要的固定寬度 */
+    margin: 0 auto; /* 置中 */
+    min-height: 100vh; /* 至少等於螢幕高度 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 垂直置中 */
+}
