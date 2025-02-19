@@ -38,10 +38,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            left: 29.4%;
-            top: 16%;
-            width: 22%;
-            height: 22%;
+            left: 10%;
+            top: 7%;
+            width: 60%;
+            height: 40%;
+            overflow: hidden; /* ✅ 限制內容不超出 */
+            background-color: rgba(255, 255, 255, 0.2); /* ✅ 測試可視邊界，測試後可刪 */
         }
 
         /* 右側選項 */
@@ -52,7 +54,7 @@
             align-items: center;
             left: 50%;
             top: 50%;
-            transform: translate(0%, -57%);
+            transform: translate(30%, -57%);
             width: 11.33%;
             height: 80%;
             max-height: 74.6vh;
@@ -70,30 +72,47 @@
             border-radius: 3px;
         }
 
-        /* 左側選項（頭髮） */
-        .left-options {
-            position: absolute;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            left: 10%;
-            top: 60%;
-            width: 45%;
-            height: 20%;
-            max-width: 74.6vh;
-            overflow-x: auto;
-            overflow-y: hidden;
-        }
+/* 左側選項（頭髮） */
+.left-options {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;  /* **確保往右排列** */
+    flex-direction: column; /* **讓每組變成上下兩個** */
+    align-content: flex-start; /* **對齊左側開始排列** */
+    gap: 10px; /* **調整間距** */
+    left: 50%;
+    top: 50%;
+    transform: translate(-67%, 0%);
 
-        .left-options::-webkit-scrollbar {
-            height: 5px;
-        }
+    width: 45%;  /* **限制容器寬度** */
+    height: 45%; /* **限制容器高度** */
+    max-width: 250px; /* **防止太寬** */
+    max-height: 250px; /* **防止太高** */
 
-        .left-options::-webkit-scrollbar-thumb {
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 3px;
-        }
+    overflow-x: auto; /* **允許左右滑動** */
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.5); /* **方便看區域** */
+    border-radius: 10px;
+}
+
+/* **滾動條樣式** */
+.left-options::-webkit-scrollbar {
+    height: 5px; /* **水平滾動條高度** */
+}
+
+.left-options::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+}
+
+/* 選項樣式 */
+.left-options .option {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
         .option img {
             width: 100px;
@@ -106,39 +125,41 @@
 
 .next-button {
     position: absolute;
-    width: 15vw;  /* 按鈕大小為 9:16 框寬度的 15% */
-    height: 15vw; /* 高度與寬度相同，保持按鈕正方形 */
+
     background: #080 no-repeat center center;
     border: none;
     cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            left: 50%;
+            top: 50%;
+            transform: translate(50%, 80%);
+            width: 8%;
+            height: 15%;
+            max-height: 74.6vh;
 
-    /* 設定原點在中央 */
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-/* 之後移動到右下角 */
-transform: translate(70%, 250%);
 }
-        .selected-image, .selected-hair {
+.selected-image, .selected-hair {
             max-width: 100%;
             max-height: 100%;
             transition: transform 0.3s ease-in-out;
         }
-
         .selected-image {
-            transform: scale(2.5);
+            transform: scale(1);
             position: absolute;
-            left: -1%;
         }
-
         .selected-hair {
-            transform: scale(3.75);
+            transform: scale(1.5);
             position: absolute;
-            top: 16%;
-            left: 0;
+
+            max-width: 100%;  /* ✅ 確保圖片不會超出父元素 */
+            max-height: 100%;
         }
     </style>
 </head>
+
+
 <body>
     <div class="container">
         <!-- 左側顯示區域 -->
