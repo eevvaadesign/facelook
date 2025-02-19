@@ -5,26 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>測驗網站</title>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-        .container {
-            text-align: center;
-        }
-        .cover img, .start-button img {
+body, html {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: gray; /* 超出9:16的地方會填滿灰色 */
+}
+.container {
+    width: 100vw; /* 預設全寬 */
+    height: 100vh; /* 預設全高 */
+    max-width: calc(100vh * (9 / 16)); /* 限制最大寬度，確保9:16 */
+    max-height: calc(100vw * (16 / 9)); /* 限制最大高度，確保9:16 */
+    background-color: white; /* 內部區域背景顏色 */
+    position: relative; /* 讓內部元素能絕對定位 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cover img{
             max-width: 100%;
             height: auto;
         }
-        .hidden {
-            display: none;
+.start-button img {
+            max-width: 40%;
+            height: auto;
+            position:center；
         }
-        .start-button {
+.hidden {display: none;}
+.start-button {
             display: flex;
             justify-content: center;
             align-items: center;

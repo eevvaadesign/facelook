@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>第一題</title>
     <style>
-       body, html {
-        overflow: hidden; /* 隱藏整體滾動條 */
-    height: 100%;
+body, html {
+    overflow: hidden; /* 隱藏整體滾動條 */
     margin: 0;
     padding: 0;
     height: 100vh; /* 讓畫面填滿視窗 */
@@ -21,13 +20,17 @@
     background: url('images/background(2).png') no-repeat center center;
     background-size: contain; /* 保持圖片完整顯示 */
     background-attachment: fixed; /* 讓背景圖不會跟著捲動 */
-
+    background-color: gray; /* 超出9:16的地方會填滿灰色 */
 }
-        .container {
-            display: flex;
-            width: 80%;
-            height: 70vh;
-        }
+.container {
+    width: 100vw; /* 預設全寬 */
+    height: 100vh; /* 預設全高 */
+    max-width: calc(100vh * (9 / 16)); /* 限制最大寬度，確保9:16 */
+    position: relative; /* 讓內部元素能絕對定位 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
         .left-box {
             position: absolute;
             left: 50%;
