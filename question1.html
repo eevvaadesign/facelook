@@ -10,13 +10,10 @@
             margin: 0;
             padding: 0;
             height: 100vh;
-            width: auto;
-            aspect-ratio: 9 / 16;
-            margin: 0 auto;
+            width: 100vw;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             background: url('images/background(2).png') no-repeat center center;
             background-size: contain;
             background-attachment: fixed;
@@ -42,76 +39,53 @@
             top: 7%;
             width: 60%;
             height: 40%;
-            overflow: hidden; /* ✅ 限制內容不超出 */
-            background-color: rgba(255, 255, 255, 0.2); /* ✅ 測試可視邊界，測試後可刪 */
+            overflow: hidden;
         }
 
-        /* 右側選項 */
         .right-options {
             position: absolute;
+            top: 7%;
+            right: 12%;
+            width: 15%;
+            height: 70%;
+            max-height: 800px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            left: 50%;
-            top: 50%;
-            transform: translate(30%, -57%);
-            width: 11.33%;
-            height: 80%;
-            max-height: 74.6vh;
             overflow-y: auto;
             overflow-x: hidden;
-            
         }
 
-        .right-options::-webkit-scrollbar {
-            width: 1%;
+        .left-options {
+            position: absolute;
+            display: flex;
+            flex-direction: column; /* **讓每組變成上下兩個** */
+            gap: 10px;
+            left: 15%;
+            top: 50%;
+            width: 12%;
+            height: 70%;
+            overflow-y: auto;
+            flex-wrap: wrap;  /* **確保往右排列** */
+            align-content: flex-start; /* **對齊左側開始排列** */
+            gap: 5px; /* **調整間距** */
+            width: 45%;  /* **限制容器寬度** */
+            height:33%; /* **限制容器高度** */
+            overflow-x: auto;
+            overflow-y: hidden;
         }
-
-        .right-options::-webkit-scrollbar-thumb {
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 3px;
-        }
-
-/* 左側選項（頭髮） */
-.left-options {
-    position: absolute;
-    display: flex;
-    flex-wrap: wrap;  /* **確保往右排列** */
-    flex-direction: column; /* **讓每組變成上下兩個** */
-    align-content: flex-start; /* **對齊左側開始排列** */
-    gap: 10px; /* **調整間距** */
-    left: 50%;
-    top: 50%;
-    transform: translate(-67%, 0%);
-
-    width: 45%;  /* **限制容器寬度** */
-    height: 45%; /* **限制容器高度** */
-    max-width: 250px; /* **防止太寬** */
-    max-height: 250px; /* **防止太高** */
-
-    overflow-x: auto; /* **允許左右滑動** */
-    overflow-y: hidden;
-    white-space: nowrap;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.5); /* **方便看區域** */
-    border-radius: 10px;
+        /* 自訂滾動條樣式（適用於左右選項欄） */
+.right-options::-webkit-scrollbar{
+    width: 5px; /* 滾動條寬度 */
 }
-
-/* **滾動條樣式** */
 .left-options::-webkit-scrollbar {
-    height: 5px; /* **水平滾動條高度** */
+    height: 5px; /* 滾動條寬度 */
 }
 
+.right-options::-webkit-scrollbar-thumb,
 .left-options::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 3px;
-}
-
-/* 選項樣式 */
-.left-options .option {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5); /* 滾動條顏色 */
+    border-radius: 3px; /* 圓角 */
 }
 
         .option img {
@@ -122,99 +96,96 @@
             margin: 5px;
         }
 
-
-.next-button {
-    position: absolute;
-
-    background: #080 no-repeat center center;
-    border: none;
-    cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            left: 50%;
-            top: 50%;
-            transform: translate(50%, 80%);
-            width: 8%;
-            height: 15%;
-            max-height: 74.6vh;
-
-}
-.selected-image, .selected-hair {
+        .selected-image, .selected-hair {
             max-width: 100%;
             max-height: 100%;
             transition: transform 0.3s ease-in-out;
         }
+
         .selected-image {
             transform: scale(1);
             position: absolute;
         }
+
         .selected-hair {
             transform: scale(1.5);
             position: absolute;
+        }
 
-            max-width: 100%;  /* ✅ 確保圖片不會超出父元素 */
-            max-height: 100%;
+        .next-button {
+            position: absolute;
+            right: 5%;
+            bottom: 5%;
+            width: 10%;
+            height: 10%;
+            background: green no-repeat center center;
+            border: none;
+            cursor: pointer;
+        }
+
+        .right-options::-webkit-scrollbar,
+        .left-options::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .right-options::-webkit-scrollbar-thumb,
+        .left-options::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 3px;
         }
     </style>
 </head>
-
-
 <body>
     <div class="container">
-        <!-- 左側顯示區域 -->
         <div class="left-box" id="displayBox"></div>
-    </div>
-    
-    <!-- 右側選項欄（臉部） -->
-    <div class="right-options">
-        <div class="option" onclick="selectFace('images/face1.png')">
-            <img src="images/face1.png" alt="臉1">
-        </div>
-        <div class="option" onclick="selectFace('images/face2.png')">
-            <img src="images/face2.png" alt="臉2">
-        </div>
-        <div class="option" onclick="selectFace('images/face3.png')">
-            <img src="images/face3.png" alt="臉3">
-        </div>
-        <div class="option" onclick="selectFace('images/face4.png')">
-            <img src="images/face4.png" alt="臉4">
-        </div>
-        <div class="option" onclick="selectFace('images/face5.png')">
-            <img src="images/face5.png" alt="臉5">
-        </div>
-        <div class="option" onclick="selectFace('images/face6.png')">
-            <img src="images/face6.png" alt="臉6">
-        </div>
-    </div>
 
-    <!-- 左側選項欄（頭髮） -->
-    <div class="left-options">
-        <div class="option" onclick="selectHair('images/hair1.png')">
-            <img src="images/hair1.png" alt="頭髮1">
+        <div class="right-options">
+            <div class="option" onclick="selectFace('images/face1.png')">
+                <img src="images/face1.png" alt="臉1">
+            </div>
+            <div class="option" onclick="selectFace('images/face2.png')">
+                <img src="images/face2.png" alt="臉2">
+            </div>
+            <div class="option" onclick="selectFace('images/face3.png')">
+                <img src="images/face3.png" alt="臉3">
+            </div>
+            <div class="option" onclick="selectFace('images/face4.png')">
+                <img src="images/face4.png" alt="臉4">
+            </div>
+            <div class="option" onclick="selectFace('images/face5.png')">
+                <img src="images/face5.png" alt="臉5">
+            </div>
+            <div class="option" onclick="selectFace('images/face6.png')">
+                <img src="images/face6.png" alt="臉6">
+            </div>
         </div>
-        <div class="option" onclick="selectHair('images/hair2.png')">
-            <img src="images/hair2.png" alt="頭髮2">
-        </div>
-        <div class="option" onclick="selectHair('images/hair3.png')">
-            <img src="images/hair3.png" alt="頭髮3">
-        </div>
-        <div class="option" onclick="selectHair('images/hair4.png')">
-            <img src="images/hair4.png" alt="頭髮4">
-        </div>
-        <div class="option" onclick="selectHair('images/hair5.png')">
-            <img src="images/hair5.png" alt="頭髮5">
-        </div>
-        <div class="option" onclick="selectHair('images/hair6.png')">
-            <img src="images/hair6.png" alt="頭髮6">
-        </div>
-        <div class="option" onclick="selectHair('images/hair7.png')">
-            <img src="images/hair7.png" alt="頭髮7">
-        </div>
-    </div>
 
-    <!-- 下一頁按鈕 -->
-    <div class="next-button" onclick="nextPage()"></div>
+        <div class="left-options">
+            <div class="option" onclick="selectHair('images/hair1.png')">
+                <img src="images/hair1.png" alt="頭髮1">
+            </div>
+            <div class="option" onclick="selectHair('images/hair2.png')">
+                <img src="images/hair2.png" alt="頭髮2">
+            </div>
+            <div class="option" onclick="selectHair('images/hair3.png')">
+                <img src="images/hair3.png" alt="頭髮3">
+            </div>
+            <div class="option" onclick="selectHair('images/hair4.png')">
+                <img src="images/hair4.png" alt="頭髮4">
+            </div>
+            <div class="option" onclick="selectHair('images/hair5.png')">
+                <img src="images/hair5.png" alt="頭髮5">
+            </div>
+            <div class="option" onclick="selectHair('images/hair6.png')">
+                <img src="images/hair6.png" alt="頭髮6">
+            </div>
+            <div class="option" onclick="selectHair('images/hair7.png')">
+                <img src="images/hair7.png" alt="頭髮7">
+            </div>
+        </div>
+
+        <div class="next-button" onclick="nextPage()"></div>
+    </div>
 
     <script>
         function selectFace(imageSrc) {
@@ -226,7 +197,7 @@
         function selectHair(imageSrc) {
             const displayBox = document.getElementById('displayBox');
             let faceImage = displayBox.querySelector('.selected-image');
-            if (!faceImage) return; // 確保臉部已經選擇
+            if (!faceImage) return;
 
             let hairImage = displayBox.querySelector('.selected-hair');
             if (!hairImage) {
@@ -244,4 +215,3 @@
     </script>
 </body>
 </html>
-

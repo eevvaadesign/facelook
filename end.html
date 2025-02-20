@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>測驗結果</title>
+    <style>
+        body, html {
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: auto;
+            aspect-ratio: 9 / 16;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #080 no-repeat center center;
+            background-size: contain;
+            background-color: gray;
+        }
+        .container {
+            width: 100vw;
+            height: 100vh;
+            max-width: calc(100vh * (9 / 16));
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .left-box {
+            position: absolute;
+            left: 29.4%;
+            top: 16%;
+            width: 22%;
+            height: 22%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .left-box img {
+            position: absolute;
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .description-box {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 30%;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            font-size: 18px;
+            text-align: center;
+            overflow-y: auto;
+        }
+        .share-button {
+            position: absolute;
+            bottom: 3%;
+            right: 5%;
+            width: 15%;
+            height: 15%;
+            background: url('images/share.png') no-repeat center center;
+            background-size: contain;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-box" id="displayBox"></div>
+        <div class="description-box" id="resultText">分析結果載入中...</div>
+        <button class="share-button" onclick="shareToIG()"></button>
+    </div>
+
+    <script>
+        window.onload = function() {
+    let face = localStorage.getItem('selectedFace');
+    let hair = localStorage.getItem('selectedHair');
+    let brow = localStorage.getItem('selectedBrow');
+    let browData = JSON.parse(localStorage.getItem('browData'));
+
+    if (face) {
+        document.getElementById('faceDisplay').src = face;
+    }
+    if (hair) {
+        document.getElementById('hairDisplay').src = hair;
+    }
+    if (brow) {
+        document.getElementById('browDisplay').src = brow;
+    }
+    if (browData) {
+        browData.forEach((brow, index) => {
+            let browImg = document.createElement('img');
+            browImg.src = brow.src;
+            browImg.style.position = 'absolute';
+            browImg.style.top = brow.top;
+            browImg.style.left = brow.left;
+            browImg.style.transform = `rotate(${brow.rotation}deg)`;
+            document.getElementById('browDisplay').appendChild(browImg);
+        });
+    }
+
+    showPersonalityAnalysis();
+};
+
+        const personalityData = {
+            face: {
+                "face1.png": "你是一個圓滑處世的人。",
+                "face2.png": "你個性剛毅，意志堅定。",
+                "face3.png": "你具有創造力和靈活應變的能力。",
+                "face4.png": "你比較內斂，喜歡深思熟慮。",
+                "face5.png": "你對世界充滿好奇心，喜歡挑戰新事物。",
+                "face6.png": "你注重細節，擁有強烈的責任感。"
+            },
+            hair: {
+                "hair1.png": "你的髮型代表你是一個冷靜的人。",
+                "hair2.png": "你的髮型顯示你富有創造力。",
+                "hair3.png": "你喜歡踏實的工作方式。",
+                "hair4.png": "你是個樂觀開朗的人。",
+                "hair5.png": "你做事果斷，行動力強。",
+                "hair6.png": "你是個喜歡冒險的人。",
+                "hair7.png": "你富有藝術氣質，注重美感。"
+            },
+            eyebrow: {
+                "brow1.png": "你的眉毛顯示你是一個善於分析的人。",
+                "brow2.png": "你的眉毛代表你思考細膩，容易感受他人情緒。",
+                "brow3.png": "你的眉毛顯示你有強烈的好勝心。",
+                "brow4.png": "你的眉毛代表你是一個理性且有條理的人。",
+                "brow5.png": "你的眉毛顯示你做事有計劃，善於領導。",
+                "brow6.png": "你的眉毛代表你善於交際，擁有豐富的人脈。",
+                "brow7.png": "你的眉毛顯示你情感豐富，內心敏感。"
+            }
+        };
+
+        function loadResults() {
+    const face = localStorage.getItem("selectedFace");
+    const hair = localStorage.getItem("selectedHair");
+    const brow = localStorage.getItem("selectedBrow"); // 修正大小寫
+    const browHeight = parseInt(localStorage.getItem("browHeight")) || 0;
+    const browAngle = parseInt(localStorage.getItem("browAngle")) || 0;
+
+    console.log("選擇的臉:", face);
+    console.log("選擇的頭髮:", hair);
+    console.log("選擇的眉毛:", brow);
+    console.log("眉毛高度:", browHeight);
+    console.log("眉毛角度:", browAngle);
+
+    if (face && hair && brow) {
+        document.getElementById('displayBox').innerHTML = `
+            <img src="${face}" class="selected-face">
+            <img src="${hair}" class="selected-hair">
+            <img src="${brow}" class="selected-eyebrow" style="transform: translateY(${browHeight}px) rotate(${browAngle}deg);">
+        `;
+
+        let faceKey = face.split('/').pop();
+        let hairKey = hair.split('/').pop();
+        let browKey = brow.split('/').pop();
+
+        let resultText = personalityData.face[faceKey] + "<br>";
+        resultText += personalityData.hair[hairKey] + "<br>";
+        resultText += personalityData.eyebrow[browKey] + "<br>";
+
+        if (browHeight > 0) resultText += "你更喜歡團體生活。<br>";
+        else if (browHeight < 0) resultText += "你比較喜歡獨處。<br>";
+
+        if (browAngle > 0) resultText += "你的眉毛角度顯示你比較樂觀。<br>";
+        else if (browAngle < 0) resultText += "你的眉毛角度顯示你有些悲觀。<br>";
+
+        document.getElementById("resultText").innerHTML = resultText;
+    } else {
+        document.getElementById("resultText").innerHTML = "無法載入結果，請重新測驗！";
+    }
+}
+
+window.onload = loadResults;
+
+    </script>
+</body>
+</html>

@@ -5,85 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>第二題</title>
     <style>
-         body, html {
+        body, html {
+            overflow: hidden;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             background: url('images/background(2).png') no-repeat center center;
-            background-size: 1125px 2436px;
+            background-size: contain;
+            background-attachment: fixed;
+            background-color: gray;
         }
         .container {
+            width: 100vw;
+            height: 100vh;
+            max-width: calc(100vh * (9 / 16));
+            position: relative;
             display: flex;
-            width: 80%;
-            height: 70vh;
+            justify-content: center;
+            align-items: center;
         }
+
+
         .left-box {
             position: absolute;
-            left: 50%;
-            top: 50%;
-            width: 790px;
-            height: 1034px;
-            transform: translate(-50%, -50%) translate(-138px, -535px);
             display: flex;
             align-items: center;
             justify-content: center;
+            left: 10%;
+            top: 7%;
+            width: 60%;
+            height: 40%;
+            overflow: hidden;
         }
         .right-options {
             position: absolute;
-            left: 50%;
-            top: 50%;
-            width: 246px;
-            height: 1831px;
-            max-height: 80vh;
+            width: 21.8%;
+            height: 75.1%;
+            top: 10.42%;
+            left: 70%;
             overflow-y: auto;
             overflow-x: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 10px 0;
-            transform: translate(-50%, -50%) translate(410px, -120px);
         }
-         /* 自訂滾動條樣式 */
-         .right-options::-webkit-scrollbar {
-            width: 7px; /* 調整滾動條寬度 */
+        .right-options::-webkit-scrollbar {
+            width: 7px;
         }
         .right-options::-webkit-scrollbar-thumb {
-            background-color: rgba(0, 0, 0, 0.5); /* 滾動條顏色 */
+            background-color: rgba(0, 0, 0, 0.5);
             border-radius: 4px;
         }
-    
-        .right-options.hidden {
-            display: none;
-        }
-
-        
         .option img {
-            width: 190px;
+            width: 80%;
             height: auto;
             cursor: pointer;
-            border: 2px solid transparent;
-            margin-bottom: 150px;
+            border: 5px solid transparent;
+            margin-bottom: 10%;
         }
-        .option img:hover {
-            border-color: #000;
-        }
+        
         .control-panel {
             position: absolute;
-            left: 50%;
+            display: flex;
+            width: 70%;
+            height: 60%;
             top: 50%;
-            width: 790px;
-            height: 550px;
-            transform: translate(-50%, -50%) translate(-138px, 400px);
+            left: 10%;
             display: flex;
             justify-content: space-around;
             align-items: center;
             background: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
-            padding: 20px;
+            padding: 2%;
+            width: 55%;  /* **限制容器寬度** */
+            height:30%; /* **限制容器高度** */
         }
         .control-group {
             display: flex;
@@ -91,92 +90,86 @@
             align-items: center;
         }
         .control-group button {
-            width: 60px;
-            height: 60px;
-            font-size: 24px;
+            width: 20%;
+            height: auto;
+            font-size: 3vw;
             cursor: pointer;
             margin: 5px;
         }
         .control-group span {
-            font-size: 20px;
+            font-size: 1.2vw;
             font-weight: bold;
         }
-
         .next-button {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 300px;
-      height: 300px;
-      background-color: transparent; /* 設為透明 */
-      border: none; /* 移除邊框 */
-      display: block;
-      cursor: pointer;
-      transform: translate(250px, 870px);
-       }
-
+            position: absolute;
+            width: 26.7%;
+            height: 26.7%;
+            background-color: transparent;
+            border: none;
+            display: block;
+            cursor: pointer;
+            top: 87.5%;
+            left: 58.9%;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="left-box" id="displayBox"></div>
-    </div>
+    <div class="frame">
+        <div class="container">
+            <div class="left-box" id="displayBox"></div>
+            <div class="right-options" id="optionsContainer">
+                <div class="option" onclick="selectBrow('images/brow1.png')">
+                    <img src="images/brow1.png" alt="brow1">
+                </div>
+                <div class="option" onclick="selectBrow('images/brow2.png')">
+                    <img src="images/brow2.png" alt="brow2">
+                </div>
+                <div class="option" onclick="selectBrow('images/brow3.png')">
+                    <img src="images/brow3.png" alt="brow3">
+                </div>
+                <div class="option" onclick="selectBrow('images/brow4.png')">
+                    <img src="images/brow4.png" alt="brow4">
+                </div>
+                <div class="option" onclick="selectBrow('images/brow5.png')">
+                    <img src="images/brow5.png" alt="brow5">
+                </div>
+                <div class="option" onclick="selectBrow('images/brow6.png')">
+                    <img src="images/brow6.png" alt="brow6">
+                </div>
+                <div class="option" onclick="selectBrow('images/brow7.png')">
+                    <img src="images/brow7.png" alt="brow7">
+                </div>
+                <div class="option" onclick="selectBrow('images/brow8.png')">
+                    <img src="images/brow8.png" alt="brow8">
+                </div>
+                <div class="option" onclick="selectBrow('images/brow9.png')">
+                    <img src="images/brow9.png" alt="brow9">
+                </div>
+            </div>
+            <div class="control-panel">
+                <div class="control-group">
+                    <button onclick="adjustBrow('rotate', -5)">🔼</button>
+                    <span>角度</span>
+                    <button onclick="adjustBrow('rotate', 5)">🔽</button>
+                </div>
+                <div class="control-group">
+                    <button onclick="adjustBrow('vertical', -3)">🔼</button>
+                    <span>上下</span>
+                    <button onclick="adjustBrow('vertical', 3)">🔽</button>
+                </div>
+                <div class="control-group">
+                    <button onclick="adjustBrow('horizontal', -3)">🔼</button>
+                    <span>左右</span>
+                    <button onclick="adjustBrow('horizontal', 3)">🔽</button>
+                </div>
+                <button onclick="resetBrow()">還原</button>
 
-    <!-- 右側選項欄 -->
-    <div class="right-options" id="optionsContainer">
-        <div class="option" onclick="selectBrow('images/brow1.png')">
-            <img src="images/brow1.png" alt="選項1">
-        </div>
-        <div class="option" onclick="selectBrow('images/brow2.png')">
-            <img src="images/brow2.png" alt="選項2">
-        </div>
-        <div class="option" onclick="selectBrow('images/brow3.png')">
-            <img src="images/brow3.png" alt="選項3">
-        </div>
-        <div class="option" onclick="selectBrow('images/brow4.png')">
-            <img src="images/brow4.png" alt="選項4">
-        </div>
-        <div class="option" onclick="selectBrow('images/brow5.png')">
-            <img src="images/brow5.png" alt="選項5">
-        </div>
-        <div class="option" onclick="selectBrow('images/brow6.png')">
-            <img src="images/brow6.png" alt="選項6">
-        </div>
-        <div class="option" onclick="selectBrow('images/brow7.png')">
-            <img src="images/brow7.png" alt="選項7">
-        </div>
-        <div class="option" onclick="selectBrow('images/brow8.png')">
-            <img src="images/brow8.png" alt="選項8">
-        </div>
-        <div class="option" onclick="selectBrow('images/brow9.png')">
-            <img src="images/brow9.png" alt="選項9">
+            </div>
+            <div class="next-button" onclick="nextPage()"></div>
         </div>
     </div>
-
-<div class="control-panel">
-    <div class="control-group">
-        <button onclick="adjustBrow('rotate', -5)">🔼</button>
-        <span>角度</span>
-        <button onclick="adjustBrow('rotate', 5)">🔽</button>
-    </div>
-    <div class="control-group">
-        <button onclick="adjustBrow('vertical', -10)">🔼</button>
-        <span>上下</span>
-        <button onclick="adjustBrow('vertical', 10)">🔽</button>
-    </div>
-    <div class="control-group">
-        <button onclick="adjustBrow('horizontal', -10)">🔼</button>
-        <span>左右</span>
-        <button onclick="adjustBrow('horizontal', 10)">🔽</button>
-    </div>
-</div>
-<div class="control-group">
-    <button onclick="resetBrow()">🔄</button>
-    <span>還原</span>
-    <!-- 下一頁按鈕 -->
-    <div class="next-button" onclick="nextPage()"></div>
-</div>
-
+</body>
+</html>
     <script>
     /* 顯示選擇臉部 */
       window.onload = function() {
@@ -186,86 +179,107 @@
         faceImg.src = selectedFace;
         faceImg.classList.add('selected-image');
         faceImg.style.zIndex = 1;
-        faceImg.style.transform = 'scale(3)'; // 放大 300%
         document.getElementById('displayBox').appendChild(faceImg);
     }
 };
 
     /* 顯示選擇眉毛 */   
-function selectBrow(imageSrc) {
+    function selectBrow(imageSrc) {
     // 移除舊的眉毛
-    let existingBrow = document.getElementById('browLayer');
-    let existingMirroredBrow = document.getElementById('mirroredBrowLayer');
-    if (existingBrow) existingBrow.remove();
-    if (existingMirroredBrow) existingMirroredBrow.remove();
+    document.querySelectorAll('.brow-layer').forEach(el => el.remove());
 
     // 創建新眉毛（正常方向）
     let browImg = document.createElement('img');
     browImg.src = imageSrc;
-    browImg.classList.add('selected-image');
+    browImg.classList.add('brow-layer', 'brow-right');
     browImg.style.position = 'absolute';
-    browImg.style.top = '450px';
-    browImg.style.left = '435px'; // 右邊眉毛
+    browImg.style.top = '31%';
+    browImg.style.left = '35.5%'; // 右邊眉毛
     browImg.style.zIndex = 2;
+    browImg.style.transform = 'scale(0.4)'; // **縮小眉毛**
     browImg.id = 'browLayer';
     document.getElementById('displayBox').appendChild(browImg);
 
     // 創建鏡像眉毛
     let mirroredBrow = document.createElement('img');
     mirroredBrow.src = imageSrc;
-    mirroredBrow.classList.add('selected-image', 'mirrored');
+    mirroredBrow.classList.add('brow-layer', 'brow-left');
     mirroredBrow.style.position = 'absolute';
-    mirroredBrow.style.top = '450px';
-    mirroredBrow.style.left = '205px'; // 左邊眉毛
-    mirroredBrow.style.transform = 'scaleX(-1)'; // 水平翻轉
+    mirroredBrow.style.top = '31%';
+    mirroredBrow.style.left = '9%'; // 左邊眉毛
+    mirroredBrow.style.transform = 'scale(-0.4, 0.4)'; // **水平鏡像 + 縮小**
     mirroredBrow.style.zIndex = 2;
     mirroredBrow.id = 'mirroredBrowLayer';
     document.getElementById('displayBox').appendChild(mirroredBrow);
 
     // 儲存選擇的眉毛
-    localStorage.setItem('selectedBrow', imageSrc);
-}
-   // 眉毛微調器
- function adjustBrow(type, value) {
-    let brow = document.getElementById('browLayer');
-    let mirroredBrow = document.getElementById('mirroredBrowLayer');
-    if (!brow || !mirroredBrow) return;
-    if (type === 'rotate') {
-        let currentRotation = parseInt(brow.dataset.rotation || 0);
-        let newRotation = currentRotation + value;
-        brow.style.transform = `rotate(${newRotation}deg)`;
-        mirroredBrow.style.transform = `scaleX(-1) rotate(${newRotation}deg)`;
-        brow.dataset.rotation = newRotation;
-        mirroredBrow.dataset.rotation = newRotation;
-    } else if (type === 'vertical') {
-        brow.style.top = `${parseInt(brow.style.top) + value}px`;
-        mirroredBrow.style.top = `${parseInt(mirroredBrow.style.top) + value}px`;
-    } else if (type === 'horizontal') {
-        brow.style.left = `${parseInt(brow.style.left) + value}px`;
-        mirroredBrow.style.left = `${parseInt(mirroredBrow.style.left) - value}px`;
-    }
+    localStorage.setItem('selectedBrow'); // 這裡要換成實際選的圖片
+
 }
 
-let initialState = {
-        rotate: 0,
-        vertical: 450,
-        horizontal: 355
-    };
-    function resetBrow() {
-        let brow = document.getElementById('browLayer');
-        let mirroredBrow = document.getElementById('mirroredBrowLayer');
-        if (!brow || !mirroredBrow) return;
+function selectBrow(imageSrc) {
+            document.querySelectorAll('.brow-layer').forEach(el => el.remove());
+            
+            let browImg = document.createElement('img');
+            browImg.src = imageSrc;
+            browImg.classList.add('brow-layer', 'brow-right');
+            browImg.style.position = 'absolute';
+            browImg.style.top = '31%';
+            browImg.style.left = '35.5%';
+            browImg.style.transform = 'scale(0.4) rotate(0deg)';
+            browImg.style.zIndex = 2;
+            document.getElementById('displayBox').appendChild(browImg);
+            
+            let mirroredBrow = document.createElement('img');
+            mirroredBrow.src = imageSrc;
+            mirroredBrow.classList.add('brow-layer', 'brow-left');
+            mirroredBrow.style.position = 'absolute';
+            mirroredBrow.style.top = '31%';
+            mirroredBrow.style.left = '9%';
+            mirroredBrow.style.transform = 'scale(-0.4, 0.4) rotate(0deg)';
+            mirroredBrow.style.zIndex = 2;
+            document.getElementById('displayBox').appendChild(mirroredBrow);
 
-        brow.style.transform = `rotate(${initialState.rotate}deg)`;
-        mirroredBrow.style.transform = `scaleX(-1) rotate(${initialState.rotate}deg)`;
+            localStorage.setItem('selectedBrow', imageSrc);
+            
+            initialBrowState = {
+                top: '31%',
+                leftRight: '35.5%',
+                leftLeft: '9%',
+                rotate: 0
+            };
+        }
 
-        brow.style.top = `${initialState.vertical}px`;
-        mirroredBrow.style.top = `${initialState.vertical}px`;
-
-        brow.style.left = `${initialState.horizontal}px`;
-        mirroredBrow.style.left = `${130}px`; // 左邊眉毛對稱位置
-    }
-
+        function adjustBrow(type, value) {
+            document.querySelectorAll('.brow-layer').forEach(brow => {
+                if (type === 'rotate') {
+                    let currentRotation = parseInt(brow.dataset.rotation || 0) + value;
+                    brow.style.transform = `scale(${brow.classList.contains('brow-left') ? '-0.4, 0.4' : '0.4'}) rotate(${currentRotation}deg)`;
+                    brow.dataset.rotation = currentRotation;
+                } else if (type === 'vertical') {
+                    let currentTop = parseFloat(brow.style.top) || 0;
+                    brow.style.top = `${currentTop + value}%`;
+                } else if (type === 'horizontal') {
+                    let currentLeft = parseFloat(brow.style.left) || 0;
+                    let adjustedValue = brow.classList.contains('brow-left') ? -value : value;
+                    brow.style.left = `${currentLeft + adjustedValue}%`;
+                }
+            });
+        }
+        
+        function resetBrow() {
+            document.querySelectorAll('.brow-layer').forEach(brow => {
+                brow.style.top = initialBrowState.top;
+                if (brow.classList.contains('brow-left')) {
+                    brow.style.left = initialBrowState.leftLeft;
+                    brow.style.transform = 'scale(-0.4, 0.4) rotate(0deg)';
+                } else {
+                    brow.style.left = initialBrowState.leftRight;
+                    brow.style.transform = 'scale(0.4) rotate(0deg)';
+                }
+                brow.dataset.rotation = 0;
+            });
+        }
 function nextPage() {
     const selectedFace = document.querySelector('.selected-image'); // 取得選擇的臉
     const selectedBrow = document.getElementById('browLayer'); // 取得選擇的眉毛
@@ -281,7 +295,7 @@ function nextPage() {
         localStorage.setItem('browRotation', selectedBrow.dataset.rotation || 0); // 儲存眉毛的旋轉角度
     }
 
-    window.location.href = 'question3.html'; // 跳轉到第三頁
+    window.location.href = 'end.html'; // 跳轉到第三頁
 }
 
     </script>
