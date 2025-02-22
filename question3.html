@@ -3,143 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>選擇頭髮</title>
+    <title>測驗結果</title>
     <style>
         body, html {
+            overflow: hidden;
             margin: 0;
             padding: 0;
+            height: 100vh;
+            width: auto;
+            aspect-ratio: 9 / 16;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            background: url('images/background(2).png') no-repeat center center;
-            background-size: 1125px 2436px;
+            background: #080 no-repeat center center;
+            background-size: contain;
+            background-color: gray;
         }
         .container {
+            width: 100vw;
+            height: 100vh;
+            max-width: calc(100vh * (9 / 16));
+            position: relative;
             display: flex;
-            width: 80%;
-            height: 70vh;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         .left-box {
             position: absolute;
-            left: 50%;
-            top: 50%;
-            width: 790px;
-            height: 1034px;
-            transform: translate(-50%, -50%) translate(-138px, -535px);
+            left: 29.4%;
+            top: 16%;
+            width: 22%;
+            height: 22%;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
+            overflow: hidden;
         }
-        .right-options {
+        .left-box img {
             position: absolute;
-            left: 50%;
-            top: 50%;
-            width: 246px;
-            height: 1831px;
-            max-height: 80vh;
-            overflow-y: auto;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 10px 0;
-            transform: translate(-50%, -50%) translate(410px, -120px);
-        }
-        .option img {
-            width: 300px;
-            height: 300px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            margin-bottom: 10px;
-        }
-        .next-button {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            width: 300px;
-            height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transform: translate(250px, 870px);
-        }
-        .display-item {
-            position: absolute;
-            width: auto;
-            height: auto;
             max-width: 100%;
             max-height: 100%;
         }
-        .mirrored {
-            transform: scaleX(-1);
+        .description-box {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 30%;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            font-size: 18px;
+            text-align: center;
+            overflow-y: auto;
+        }
+        .share-button {
+            position: absolute;
+            bottom: 3%;
+            right: 5%;
+            width: 15%;
+            height: 15%;
+            background: url('images/share.png') no-repeat center center;
+            background-size: contain;
+            border: none;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="left-box" id="displayBox"></div>
+        <div class="description-box" id="resultText">分析結果載入中...</div>
+        <button class="share-button" onclick="shareToIG()"></button>
     </div>
-    <div class="right-options">
-        <div class="option" onclick="selectHair('images/hair (1).png')">
-            <img src="images/hair (1).png" alt="頭髮1">
-        </div>
-        <div class="option" onclick="selectHair('images/hair (2).png')">
-            <img src="images/hair (2).png" alt="頭髮2">
-        </div>
-        <div class="option" onclick="selectHair('images/hair (3).png')">
-            <img src="images/hair (3).png" alt="頭髮3">
-        </div>
-    </div>
-    <div class="next-button" onclick="nextPage()"></div>
+
     <script>
-        function loadPreviousSelections() {
-            const displayBox = document.getElementById('displayBox');
-            const face = localStorage.getItem('selectedFace');
-            const eyebrows = localStorage.getItem('selectedEyebrows');
-            const eyebrowsMirrored = localStorage.getItem('selectedEyebrowsMirrored');
-            if (face) {
-                let faceImg = document.createElement('img');
-                faceImg.src = face;
-                faceImg.className = 'display-item';
-                faceImg.style.zIndex = 1;
-                faceImg.style.transform = 'scale(3)'; // 放大 300%
-                displayBox.appendChild(faceImg);
+        window.onload = function() {
+    let face = localStorage.getItem('selectedFace');
+    let hair = localStorage.getItem('selectedHair');
+    let browData = JSON.parse(localStorage.getItem('browData'));
+
+    if (face) {
+        document.getElementById('faceDisplay').src = face;
+    }
+    if (hair) {
+        document.getElementById('hairDisplay').src = hair;
+    }
+    if (brow) {
+        document.getElementById('browDisplay').src = brow;
+    }
+    if (browData) {
+        browData.forEach((brow, index) => {
+            let browImg = document.createElement('img');
+            browImg.src = brow.src;
+            browImg.style.position = 'absolute';
+            browImg.style.top = brow.top;
+            browImg.style.left = brow.left;
+            browImg.style.transform = `rotate(${brow.rotation}deg)`;
+            document.getElementById('browDisplay').appendChild(browImg);
+        });
+    }
+
+    showPersonalityAnalysis();
+};
+
+        const personalityData = {
+            face: {
+                "face1.png": "你是一個圓滑處世的人。",
+                "face2.png": "你個性剛毅，意志堅定。",
+                "face3.png": "你具有創造力和靈活應變的能力。",
+                "face4.png": "你比較內斂，喜歡深思熟慮。",
+                "face5.png": "你對世界充滿好奇心，喜歡挑戰新事物。",
+                "face6.png": "你注重細節，擁有強烈的責任感。"
+            },
+            hair: {
+                "hair1.png": "你的髮型代表你是一個冷靜的人。",
+                "hair2.png": "你的髮型顯示你富有創造力。",
+                "hair3.png": "你喜歡踏實的工作方式。",
+                "hair4.png": "你是個樂觀開朗的人。",
+                "hair5.png": "你做事果斷，行動力強。",
+                "hair6.png": "你是個喜歡冒險的人。",
+                "hair7.png": "你富有藝術氣質，注重美感。"
+            },
+            eyebrow: {
+                "brow1.png": "你的眉毛顯示你是一個善於分析的人。",
+                "brow2.png": "你的眉毛代表你思考細膩，容易感受他人情緒。",
+                "brow3.png": "你的眉毛顯示你有強烈的好勝心。",
+                "brow4.png": "你的眉毛代表你是一個理性且有條理的人。",
+                "brow5.png": "你的眉毛顯示你做事有計劃，善於領導。",
+                "brow6.png": "你的眉毛代表你善於交際，擁有豐富的人脈。",
+                "brow7.png": "你的眉毛顯示你情感豐富，內心敏感。"
             }
-            if (eyebrows) {
-                let eyebrowsImg = document.createElement('img');
-                eyebrowsImg.src = eyebrows;
-                eyebrowsImg.className = 'display-item';
-                eyebrowsImg.style.zIndex = 2;
-                displayBox.appendChild(eyebrowsImg);
-            }
-            if (eyebrowsMirrored) {
-                let mirroredImg = document.createElement('img');
-                mirroredImg.src = eyebrowsMirrored;
-                mirroredImg.className = 'display-item mirrored';
-                mirroredImg.style.zIndex = 2;
-                displayBox.appendChild(mirroredImg);
+        };
+
+        function loadResults() {
+            const face = localStorage.getItem("selectedFace");
+            const hair = localStorage.getItem("selectedHair");
+            const eyebrow = localStorage.getItem("selectedbrow");
+            const eyebrowHeight = parseInt(localStorage.getItem("eyebrowHeight")) || 0;
+            const eyebrowAngle = parseInt(localStorage.getItem("eyebrowAngle")) || 0;
+
+            console.log("選擇的臉:", face);
+            console.log("選擇的頭髮:", hair);
+            console.log("選擇的眉毛:", brow);
+            console.log("眉毛高度:", eyebrowHeight);
+            console.log("眉毛角度:", eyebrowAngle);
+
+            if (face && hair && eyebrow) {
+                document.getElementById('displayBox').innerHTML = `
+                    <img src="${face}" class="selected-face">
+                    <img src="${hair}" class="selected-hair">
+                    <img src="${eyebrow}" class="selected-eyebrow" style="transform: translateY(${eyebrowHeight}px) rotate(${eyebrowAngle}deg);">
+                `;
+
+                let faceKey = face.split('/').pop();
+                let hairKey = hair.split('/').pop();
+                let eyebrowKey = eyebrow.split('/').pop();
+
+                let resultText = personalityData.face[faceKey] + "<br>";
+                resultText += personalityData.hair[hairKey] + "<br>";
+                resultText += personalityData.eyebrow[eyebrowKey] + "<br>";
+
+                if (eyebrowHeight > 0) resultText += "你更喜歡團體生活。<br>";
+                else if (eyebrowHeight < 0) resultText += "你比較喜歡獨處。<br>";
+
+                if (eyebrowAngle > 0) resultText += "你的眉毛角度顯示你比較樂觀。<br>";
+                else if (eyebrowAngle < 0) resultText += "你的眉毛角度顯示你有些悲觀。<br>";
+
+                document.getElementById("resultText").innerHTML = resultText;
+            } else {
+                document.getElementById("resultText").innerHTML = "無法載入結果，請重新測驗！";
             }
         }
-        function selectHair(imageSrc) {
-            let existingHair = document.getElementById('hairLayer');
-            if (existingHair) existingHair.remove();
-            let hairImg = document.createElement('img');
-            hairImg.src = imageSrc;
-            hairImg.className = 'display-item';
-            hairImg.style.zIndex = 3;
-            hairImg.style.transform = 'scale(2)'; // 放大 300%
-            hairImg.id = 'hairLayer';
-            document.getElementById('displayBox').appendChild(hairImg);
-            localStorage.setItem('selectedHair', imageSrc);
-        }
-        function nextPage() {
-            window.location.href = 'question4.html';
-        }
-        window.onload = loadPreviousSelections;
+
+
+
+        window.onload = loadResults;
     </script>
 </body>
 </html>
